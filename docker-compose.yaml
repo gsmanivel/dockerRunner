@@ -1,0 +1,29 @@
+version: "3"
+services:
+  hub: 
+    image: selenium/hub:3.14
+    
+  chrome:
+    image: selenium/node-chrome:3.14
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub   
+
+  firefox:
+    image: selenium/node-firefox:3.14
+    depends_on:
+      - hub
+    environment:
+     - HUB_HOST=hub
+
+  smoke:
+    image: manivels1987/dockerpoc
+    depends_on:
+     - chrome
+     - firefox     
+    environment:
+     - HUB_HOST=hub
+     - MODULE=testng.xml
+    volumes:
+    - ./ExtentReports:/usr/share/manman/test-output
