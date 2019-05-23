@@ -15,6 +15,11 @@ pipeline{
 			steps{
 				bat "docker-compose up smoke"
 			}
-		} 
+		}
+		stage("Scale Down"){
+			steps{
+				bat "docker-compose down"
+			}
+		} 		
 	}
 }
