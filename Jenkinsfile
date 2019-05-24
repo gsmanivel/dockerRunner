@@ -16,10 +16,12 @@ pipeline{
 				bat "docker-compose up smoke"
 			}
 		}
-		stage("Scale Down"){
-			steps{
-				bat "docker-compose down"
-			}
-		} 		
+		post{
+		always{
+			archiveArtifacts artifacts: 'output/**'
+			sh "docker-compose down"
+			sh "sudo rm -rf output/"
+		}
+	} 		
 	}
 }
