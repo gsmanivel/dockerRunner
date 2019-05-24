@@ -3,30 +3,25 @@ pipeline{
 	stages{
 		stage("Pull Latest Image"){
 			steps{
-				bat "docker pull manivels1987/dockerpoc"
+				sh "docker pull vinsdocker/selenium-docker"
 			}
 		}
 		stage("Start Grid"){
 			steps{
-				bat "docker-compose up -d hub chrome firefox"
+				sh "docker-compose up -d hub chrome firefox"
 			}
 		}
 		stage("Run Test"){
 			steps{
-				bat "docker-compose up smoke"
+				sh "docker-compose up smoke"
 			}
 		}
-		stage("Scale Down"){
-			steps{
-				bat "docker-compose down"
-			}
-		}
-		post{
-			always{
-				archiveArtifacts artifacts: 'output/**'
-				sh "docker-compose down"
-				sh "sudo rm -rf output/"
-			}
+	}
+	post{
+		always{
+			archiveArtifacts artifacts: 'output/**'
+			sh "docker-compose down"
+			sh "sudo rm -rf output/"
 		}
 	}
 }
