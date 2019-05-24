@@ -20,6 +20,13 @@ pipeline{
 			steps{
 				bat "docker-compose down"
 			}
-		} 		
+		}
+		post{
+			always{
+				archiveArtifacts artifacts: 'output/**'
+				sh "docker-compose down"
+				sh "sudo rm -rf output/"
+			}
+		}
 	}
 }

@@ -26,4 +26,4 @@ services:
      - HUB_HOST=hub
      - MODULE=testng.xml
     volumes:
-    - ./ExtentReports:/usr/share/manman/test-output
+    - ./output/ExtentReports:/usr/share/manman/test-output
